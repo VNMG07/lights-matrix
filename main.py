@@ -5,6 +5,11 @@ def create_matrix(n, m):
     return [m * [0] for i in range(n)]
 
 
+'''we will use that function for testing only'''
+# def create_matrix_with_one(n, m):
+#     return [m * [1] for i in range(n)]
+
+
 def get_coordinates(line):
     coord = {}
     try:
@@ -23,7 +28,7 @@ def get_indexes(l_start, l_end, c_start, c_end):
     indexes = []
     for i in range(int(l_start), int(l_end) + 1):
         for j in range(int(c_start), int(c_end) + 1):
-                indexes.append([i, j])
+            indexes.append([i, j])
     return indexes
 
 
@@ -33,15 +38,15 @@ def change_lights(matrix, coordinates):
         for k, v in coordinates.items():
             line_start, column_start = v[0]
             line_end, column_end = v[1]
-            indexs = get_indexes(line_start, line_end, column_start, column_end)
-            for index in indexs:
+            indexes = get_indexes(line_start, line_end, column_start, column_end)
+            for index in indexes:
                 if k != 'toggle':
                     matrix[index[0]][index[1]] = choices[k]
                 else:
                     matrix[index[0]][index[1]] = 0 if matrix[index[0]][index[1]] == 1 else 1
         return matrix
     except KeyError as e:
-        print('not dictionary key')
+        print(f'Not a dictionary key-> {e}')
     except Exception as e:
         print(f'Unexpected exception occurred! -> {e}')
 
@@ -51,8 +56,8 @@ def change_upgraded_lights(upgraded_matrix, coordinates):
         for k, v in coordinates.items():
             line_start, column_start = v[0]
             line_end, column_end = v[1]
-            indexs = get_indexes(line_start, line_end, column_start, column_end)
-            for index in indexs:
+            indexes = get_indexes(line_start, line_end, column_start, column_end)
+            for index in indexes:
                 if k != 'toggle':
                     if k == 'off' and upgraded_matrix[index[0]][index[1]] > 0:
                         upgraded_matrix[index[0]][index[1]] -= 1
@@ -64,7 +69,7 @@ def change_upgraded_lights(upgraded_matrix, coordinates):
                     upgraded_matrix[index[0]][index[1]] += 2
         return upgraded_matrix
     except KeyError as e:
-        print('not dictionary key')
+        print(f'not dictionary key-> {e}')
     except Exception as e:
         print(f'Unexpected exception occurred! -> {e}')
 
